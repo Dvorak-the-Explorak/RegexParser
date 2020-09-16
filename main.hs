@@ -1,9 +1,8 @@
 import Parsing
-
+import Data.Char (chr, ord)
 
 main = interact $
   show . solve
-
 
 type Regex = [RegElement]
 data RegElement = RegChar Char RegModifier | RegClass String RegModifier | RegCoClass String RegModifier | RegGroup Regex RegModifier
@@ -13,86 +12,90 @@ data RegModifier = One | ZeroOrOne | ZeroOrMore | ZeroOrMoreNongreedy | OneOrMor
 
 
 
+
+
 regex = some regelement
-regelement = regchar <|> regclass <|> regcoclass <|> reggroup
-regchar = do
-  x <- sat (not . isSpecial)
-  mod <- regmodifier
-  return $ RegChar x mod
--- doesn't allow '^' in the class at all (should be allowed other than in the first position)
+-- coclass must come before class, that's how it handles the starting ^
+-- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
+regelement = regcoclass <|> regclass <|> reggroup <|> regchar
 regclass = do
-  char '['
-  x <- some regclassoption
-  char ']'
-  mod <- regmodifier
-  return $ RegClass x mod
+    char '['
+    x <- some regclassoption
+    char ']'
+    mod <- regmodifier
+    return $ RegClass (foldr (++) "" x) mod
+  <|> do
+    char '.'
+    mod <- regmodifier
+    return $ RegClass wildcard mod
+  <|> do
+    string "\\s"
+    mod <- regmodifier
+    return $ RegClass " \t\n" mod
+  <|> do
+    string "\\S"
+    mod <- regmodifier
+    return $ RegCoClass " \t\n" mod
 regcoclass = do
-  char '['
-  char '^'
+  string "[^"
   x <- some regclassoption
   char ']'
   mod <- regmodifier
-  return $ RegCoClass x mod
+  return $ RegCoClass (foldr (++) "" x) mod
 reggroup = do
   char '('
   g <- regex
   char ')'
   mod <- regmodifier
   return $ RegGroup g mod
+regchar = do
+  x <- sat (not . isSpecial)
+  mod <- regmodifier
+  return $ RegChar x mod
 regmodifier = do
       char '?'
       return ZeroOrOne
     <|> do
-      char '*'
-      char '?'
+      string "*?"
       return ZeroOrMoreNongreedy
     <|> do
       char '*'
       return ZeroOrMore
     <|> do
-      char '+'
-      char '?'
+      string "+?"
       return OneOrMoreNongreedy
     <|> do
       char '+'
       return OneOrMore
     <|> do return One
 
-
-
-
-isSpecial = flip elem "[.(+*?"
-isSpecialOption = flip elem "^-]"
-regclassoption = sat (not . isSpecialOption)
-
-
-
+isSpecial = flip elem "+*?)"
+wildcard = charRange 20 126
+regclassoption = do
+    x <- sat (/= ']')
+    char '-'
+    y <- sat (/= ']')
+    return $ explode x y
+  <|> do
+    x <- sat $ not . (flip elem "]") 
+    return [x]
 
 solve :: String -> [(Regex, String)]
-solve regstr = parse regex regstr
--- solve ls = case matches of
---     Nothing -> ["Error parsing regex!"]
---     Just xs -> xs
---   where
---     matches = do
---       exp <- safeHead ls
---       reg <- compile exp
---       rem <- safeTail ls
---       text <- Just $ recombine rem
---       return $ search reg text
+solve regstr = match reg "Hello, world!" parse regex regstr
+
+explode :: Char -> Char -> String
+explode x y = charRange (ord x) (ord y)
+
+charRange :: Int -> Int -> String
+charRange i j | i > j = ""
+              | i == j = [chr i]
+              | otherwise = chr i : (charRange (i+1) j)
 
 safeHead [] = Nothing
 safeHead (x:xs) = Just x
 
 safeTail [] = Nothing
 safeTail (x:xs) = Just xs
-
-recombine [] = ""
-recombine [x] = x 
-recombine (x:y:xs) = x ++ "\n" ++ recombine (y:xs)
-
-compile :: String -> Maybe Regex
-compile = const Nothing
 
 search :: Regex -> String -> [String]
 search r s = []
