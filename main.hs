@@ -22,25 +22,33 @@ regex = regelement
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 -- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
 
-
-
 regchar :: Parser Regex
 regchar = do
   x <- sat (not . isSpecial)
   return $ string [x]
-  -- return (case mod of 
-  --   One -> string [x]
-  --   ZeroOrOne -> string [x] <|> do return ""
-  --   ZeroOrMore -> zeroormore $ string [x]
-  --   OneOrMore -> oneormore $ string [x]
-  --   ZeroOrMoreNongreedy -> zeroormorenongreedy $ string [x]
-  --   OneOrMoreNongreedy -> oneormorenongreedy $ string [x])
 
 regelement :: Parser Regex
 regelement = do
   x <- regchar
   mod <- regmodifier
   return $ mod x
+
+regclass = do
+    char '['
+    x <- some regclassoption
+    char ']'
+    return $ sat (flip elem $ mconcat x)
+  <|> do
+    char '.'
+    return $ RegClass wildcard
+  <|> do
+    string "\\s"
+    mod <- regmodifier
+    return $ RegClass " \t\n" mod
+  <|> do
+    string "\\S"
+    mod <- regmodifier
+    return $ RegCoClass " \t\n" mod
 
 regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
@@ -113,30 +121,25 @@ nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : (map (\(a,b) -> (x++a,
   where
     suffixes =  nongreedyOptions (xs, rem)
 
+isSpecial = flip elem "+*?)"
+
+wildcard = charRange 20 126
+
+regclassoption = do
+    x <- sat (/= ']')
+    char '-'
+    y <- sat (/= ']')
+    return $ explode x y
+  <|> do
+    x <- sat $ not . (flip elem "]") 
+    return [x]
 
 
 -- regex = some regelement
 -- -- coclass must come before class, that's how it handles the starting ^
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 -- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
--- regclass = do
---     char '['
---     x <- some regclassoption
---     char ']'
---     mod <- regmodifier
---     return $ RegClass (foldr (++) "" x) mod
---   <|> do
---     char '.'
---     mod <- regmodifier
---     return $ RegClass wildcard mod
---   <|> do
---     string "\\s"
---     mod <- regmodifier
---     return $ RegClass " \t\n" mod
---   <|> do
---     string "\\S"
---     mod <- regmodifier
---     return $ RegCoClass " \t\n" mod
+-- 
 -- regcoclass = do
 --   string "[^"
 --   x <- some regclassoption
@@ -166,16 +169,6 @@ nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : (map (\(a,b) -> (x++a,
 --       return OneOrMore
 --     <|> do return One
 
-isSpecial = flip elem "+*?)"
--- wildcard = charRange 20 126
--- regclassoption = do
---     x <- sat (/= ']')
---     char '-'
---     y <- sat (/= ']')
---     return $ explode x y
---   <|> do
---     x <- sat $ not . (flip elem "]") 
---     return [x]
 
 solve :: [String] -> String
 solve [] = "No input"
