@@ -14,9 +14,6 @@ data RegModifier = One | ZeroOrOne | ZeroOrMoreNongreedy | ZeroOrMore | OneOrMor
 
 -- the regex parser type parses a string out of a string
 -- regex :: Parser Regex
--- regex = do 
---   elems <- some regchar
---   return $ mconcat elems
 regex :: Parser Regex
 regex = fmap zeroormore regchar
 
@@ -63,22 +60,29 @@ oneormore p = P (\inp -> case (parse (some p) inp) of
                   [] -> []
                   (x:xs) -> greedyOptions x)
 
+oneormorenongreedy :: Regex -> Regex
+oneormorenongreedy p = P (\inp -> case (parse (some p) inp) of
+                  [] -> []
+                  (x:xs) -> greedyOptions x)
+
 zeroormore :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
 zeroormore p = P (\inp -> case (parse (some p) inp) of
                   [] -> []
-                  (x:xs) -> greedyOptions x ++ [("", inp)])
+                  (x:xs) -> nongreedyOptions x ++ [("", inp)])
+
+
 
 
 greedyOptions :: ([String], String) -> [(String, String)]
 greedyOptions ([], rem) = []
 greedyOptions (xs, rem) = (mconcat xs, rem) : greedyOptions (init xs, last xs ++ rem)
 
--- nongreedyOptions :: ([String], String) -> [(String, String)]
--- nongreedyOptions ([], rem) = []
--- nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : map (x ++) suffixes
-  -- where
-  --   suffixes =  nongreedyOptions (xs, rem)
+nongreedyOptions :: ([String], String) -> [(String, String)]
+nongreedyOptions ([], rem) = []
+nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : (map (\(a,b) -> (x++a, b)) suffixes)
+  where
+    suffixes =  nongreedyOptions (xs, rem)
 
 
 
