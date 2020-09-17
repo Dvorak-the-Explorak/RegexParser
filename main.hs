@@ -29,7 +29,7 @@ regchar = do
 
 regelement :: Parser Regex
 regelement = do
-  x <- regclass <|> regchar
+  x <- regcoclass <|> regclass <|> regchar
   mod <- regmodifier
   return $ mod x
 
@@ -39,7 +39,7 @@ regclass = do
     x <- some regclassoption
     -- x :: [Regex] (each a single character pattern)
     char ']'
-    return $ foldr1 (<|>) x
+    return $ fmap singleton $ sat $ anyp x
   -- <|> do
   --   char '.'
   --   return $ RegClass wildcard
@@ -51,6 +51,14 @@ regclass = do
   --   string "\\S"
   --   mod <- regmodifier
   --   return $ RegCoClass " \t\n" mod
+
+regcoclass :: Parser (Regex)
+regcoclass = do
+    string "[^"
+    x <- some regclassoption
+    -- x :: [Regex] (each a single character pattern)
+    char ']'
+    return $ fmap singleton $ sat $ not . anyp x
 
 -- regcoclass :: Parser (Regex)
 -- regcoclass = do
@@ -72,15 +80,15 @@ regclass = do
 --     -- return $ string [x]
 --     return $ fmap singleton $ sat (/= x)
 
-regclassoption :: Parser (Regex)
+regclassoption :: Parser (Char -> Bool)
 regclassoption = do
     x <- sat (/= ']')
     char '-'
     y <- sat (/= ']')
-    return $ fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
+    return $ (\ch -> ord x <= ord ch && ord ch <= ord y)
   <|> do
     x <- sat $ not . (flip elem "]") 
-    return $ string [x]
+    return $ (== x)
 
 regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
@@ -216,3 +224,11 @@ safeHead (x:xs) = Just x
 
 singleton :: Char -> String
 singleton x = [x]
+
+anyp :: [a -> Bool] -> (a -> Bool)
+anyp [] val = True
+anyp (x:xs) val = (x val) || anyp xs val
+
+allp :: [a -> Bool] -> (a -> Bool)
+allp [] val = False
+allp (x:xs) val = (x val) && anyp xs val
