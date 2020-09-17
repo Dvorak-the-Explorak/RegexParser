@@ -15,7 +15,7 @@ data RegModifier = One | ZeroOrOne | ZeroOrMoreNongreedy | ZeroOrMore | OneOrMor
 -- the regex parser type parses a string out of a string
 -- regex :: Parser Regex
 regex :: Parser Regex
-regex = fmap zeroormore regchar
+regex = fmap zeroormorenongreedy regchar
 
 
 -- -- coclass must come before class, that's how it handles the starting ^
@@ -63,17 +63,22 @@ oneormore p = P (\inp -> case (parse (some p) inp) of
 oneormorenongreedy :: Regex -> Regex
 oneormorenongreedy p = P (\inp -> case (parse (some p) inp) of
                   [] -> []
-                  (x:xs) -> greedyOptions x)
+                  (x:xs) -> nongreedyOptions x)
 
 zeroormore :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
 zeroormore p = P (\inp -> case (parse (some p) inp) of
-                  [] -> []
-                  (x:xs) -> nongreedyOptions x ++ [("", inp)])
+                  [] -> [("", inp)]
+                  (x:xs) -> greedyOptions x ++ [("", inp)])
+
+zeroormorenongreedy :: Regex -> Regex
+zeroormorenongreedy p = P (\inp -> case (parse (some p) inp) of
+                  [] -> [("", inp)]
+                  (x:xs) -> [("", inp)] ++ nongreedyOptions x)
 
 
 
-
+-- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
 greedyOptions ([], rem) = []
 greedyOptions (xs, rem) = (mconcat xs, rem) : greedyOptions (init xs, last xs ++ rem)
@@ -171,6 +176,7 @@ match reg str = case result of
   where result = do
                   (result,rem) <- safeHead $ parse reg str
                   return result
+-- match reg str = show $ parse reg str
 
 
 safeHead [] = Nothing
