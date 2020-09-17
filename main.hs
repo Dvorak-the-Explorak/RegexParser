@@ -2,20 +2,24 @@ import Parsing
 import Data.Char (chr, ord)
 
 main = interact $
-  solve
+  solve . lines
 
 -- This version is an attempt at turning the regex string into a parser
 -- ie, we attempt to write a Parser (Parser String)
 
 type Regex = Parser String
 
+
 data RegModifier = One | ZeroOrOne | ZeroOrMoreNongreedy | ZeroOrMore | OneOrMoreNongreedy | OneOrMore
 
 -- the regex parser type parses a string out of a string
-regex :: Parser (Parser String)
-regex = do 
-  elems <- some regchar
-  return result
+-- regex :: Parser Regex
+-- regex = do 
+--   elems <- some regchar
+--   return $ mconcat elems
+regex :: Parser Regex
+regex = fmap zeroormore regchar
+
 
 -- -- coclass must come before class, that's how it handles the starting ^
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
@@ -23,7 +27,7 @@ regex = do
 
 
 
-regchar :: Parser (Parser String)
+regchar :: Parser Regex
 regchar = do
   x <- sat (not . isSpecial)
   mod <- regmodifier
@@ -53,6 +57,28 @@ regmodifier = do
     <|> do return One
 
 
+oneormore :: Regex -> Regex
+-- :: (Parser String) -> (Parser String)
+oneormore p = P (\inp -> case (parse (some p) inp) of
+                  [] -> []
+                  (x:xs) -> greedyOptions x)
+
+zeroormore :: Regex -> Regex
+-- :: (Parser String) -> (Parser String)
+zeroormore p = P (\inp -> case (parse (some p) inp) of
+                  [] -> []
+                  (x:xs) -> greedyOptions x ++ [("", inp)])
+
+
+greedyOptions :: ([String], String) -> [(String, String)]
+greedyOptions ([], rem) = []
+greedyOptions (xs, rem) = (mconcat xs, rem) : greedyOptions (init xs, last xs ++ rem)
+
+-- nongreedyOptions :: ([String], String) -> [(String, String)]
+-- nongreedyOptions ([], rem) = []
+-- nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : map (x ++) suffixes
+  -- where
+  --   suffixes =  nongreedyOptions (xs, rem)
 
 
 
@@ -118,18 +144,21 @@ isSpecial = flip elem "+*?)"
 --     x <- sat $ not . (flip elem "]") 
 --     return [x]
 
--- solve :: String -> [(String, String)]
--- solve regstr = case safeHead parsers of
---   Nothing -> ""[([], regstr)]""
---   Just (reg,rem) -> parse reg "Hello, world"
---   where
---     parsers = parse regex regstr
-solve :: String -> String
-solve regstr = case safeHead parsers of
+solve :: [String] -> String
+solve [] = "No input"
+solve [x] = "No search text given"
+solve (regstr:text:xs) = case safeHead parsers of
   Nothing -> "Error compiling regex"
-  Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg  "Hello, world!" ++ "\"\n"
+  Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
   where
     parsers = parse regex regstr
+
+
+-- solve regstr = case safeHead parsers of
+--   Nothing -> "Error compiling regex"
+--   Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg  "Hello, world!" ++ "\"\n"
+--   where
+--     parsers = parse regex regstr
 
 match :: Regex -> String -> String
 match reg str = case result of
