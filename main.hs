@@ -29,26 +29,58 @@ regchar = do
 
 regelement :: Parser Regex
 regelement = do
-  x <- regchar
+  x <- regclass <|> regchar
   mod <- regmodifier
   return $ mod x
+
 
 regclass = do
     char '['
     x <- some regclassoption
+    -- x :: [Regex] (each a single character pattern)
     char ']'
-    return $ sat (flip elem $ mconcat x)
+    return $ foldr1 (<|>) x
+  -- <|> do
+  --   char '.'
+  --   return $ RegClass wildcard
+  -- <|> do
+  --   string "\\s"
+  --   mod <- regmodifier
+  --   return $ RegClass " \t\n" mod
+  -- <|> do
+  --   string "\\S"
+  --   mod <- regmodifier
+  --   return $ RegCoClass " \t\n" mod
+
+-- regcoclass :: Parser (Regex)
+-- regcoclass = do
+--     string "[^"
+--     x <- some regcoclassoption
+--     -- x :: [Regex] (each a single character pattern)
+--     char ']'
+--     return $ foldr1 (<|>) x
+
+
+-- regcoclassoption :: Parser (Regex)
+-- regcoclassoption = do
+--     x <- sat (/= ']')
+--     char '-'
+--     y <- sat (/= ']')
+--     return $ fmap singleton $ sat $ not . (\ch -> ord x <= ord ch && ord ch <= ord y)
+--   <|> do
+--     x <- sat $ not . (flip elem "]") 
+--     -- return $ string [x]
+--     return $ fmap singleton $ sat (/= x)
+
+regclassoption :: Parser (Regex)
+regclassoption = do
+    x <- sat (/= ']')
+    char '-'
+    y <- sat (/= ']')
+    return $ fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
   <|> do
-    char '.'
-    return $ RegClass wildcard
-  <|> do
-    string "\\s"
-    mod <- regmodifier
-    return $ RegClass " \t\n" mod
-  <|> do
-    string "\\S"
-    mod <- regmodifier
-    return $ RegCoClass " \t\n" mod
+    x <- sat $ not . (flip elem "]") 
+    return $ string [x]
 
 regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
@@ -71,20 +103,17 @@ regmodifier = do
       return oneormore
     <|> do return id
 
-
 zeroorone :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
 zeroorone p = P (\inp -> case (parse (some p) inp) of
                   [] -> [("", inp)]
                   (x:xs) -> [(head $ fst x, snd x)] ++ [("", inp)])
 
-
 zerooronenongreedy :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
 zerooronenongreedy p = P (\inp -> case (parse (some p) inp) of
                   [] -> [("", inp)]
                   (x:xs) -> [("", inp)] ++ [(head $ fst x, snd x)])
-
 
 oneormore :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
@@ -108,8 +137,6 @@ zeroormorenongreedy p = P (\inp -> case (parse (some p) inp) of
                   [] -> [("", inp)]
                   (x:xs) -> [("", inp)] ++ nongreedyOptions x)
 
-
-
 -- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
 greedyOptions ([], rem) = []
@@ -123,29 +150,17 @@ nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : (map (\(a,b) -> (x++a,
 
 isSpecial = flip elem "+*?)"
 
-wildcard = charRange 20 126
+regcharrange :: Char -> Char -> Regex
+regcharrange x y = fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
+-- wildcard = charRange 20 126
 
-regclassoption = do
-    x <- sat (/= ']')
-    char '-'
-    y <- sat (/= ']')
-    return $ explode x y
-  <|> do
-    x <- sat $ not . (flip elem "]") 
-    return [x]
 
 
 -- regex = some regelement
 -- -- coclass must come before class, that's how it handles the starting ^
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 -- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
--- 
--- regcoclass = do
---   string "[^"
---   x <- some regclassoption
---   char ']'
---   mod <- regmodifier
---   return $ RegCoClass (foldr (++) "" x) mod
+
 -- reggroup = do
 --   char '('
 --   g <- regex
@@ -198,3 +213,6 @@ match reg str = case result of
 
 safeHead [] = Nothing
 safeHead (x:xs) = Just x
+
+singleton :: Char -> String
+singleton x = [x]
