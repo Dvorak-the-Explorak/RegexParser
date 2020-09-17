@@ -1,2 +1,2 @@
-[^a-zA-Z, ]+
+[A-z]+
 Hello, world!

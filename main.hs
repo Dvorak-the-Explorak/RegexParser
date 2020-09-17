@@ -9,16 +9,12 @@ main = interact $
 
 type Regex = Parser String
 
-
-data RegModifier = One | ZeroOrOne | ZeroOrMoreNongreedy | ZeroOrMore | OneOrMoreNongreedy | OneOrMore
-
 -- the regex parser type parses a string out of a string
 -- regex :: Parser Regex
 regex :: Parser Regex
 regex = regelement
 
 
--- -- coclass must come before class, that's how it handles the starting ^
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 -- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
 
@@ -29,56 +25,36 @@ regchar = do
 
 regelement :: Parser Regex
 regelement = do
-  x <- regcoclass <|> regclass <|> regchar
+  x <- reggroup <|> regclass <|> regchar
+  -- x <- regclass <|> regchar
   mod <- regmodifier
   return $ mod x
 
-
+regclass :: Parser Regex
 regclass = do
     char '['
+    comp <- char '^' <|> pure '+'
     x <- some regclassoption
-    -- x :: [Regex] (each a single character pattern)
     char ']'
-    return $ fmap singleton $ sat $ anyp x
-  -- <|> do
-  --   char '.'
-  --   return $ RegClass wildcard
-  -- <|> do
-  --   string "\\s"
-  --   mod <- regmodifier
-  --   return $ RegClass " \t\n" mod
-  -- <|> do
-  --   string "\\S"
-  --   mod <- regmodifier
-  --   return $ RegCoClass " \t\n" mod
+    return (case comp of
+        '+' -> fmap singleton $ sat $ anyp x
+        '^' -> fmap singleton $ sat $ not . anyp x)
+  <|> do
+    char '.'
+    return $ fmap singleton $ sat (\ch -> 20 <= ord ch && ord ch <= 126)
+  <|> do
+    string "\\s"
+    return $ fmap singleton $ sat (flip elem " \t\n\r\f") 
+  <|> do
+    string "\\S"
+    return $ fmap singleton $ sat $ not . (flip elem " \t\n\r\f") 
 
-regcoclass :: Parser (Regex)
-regcoclass = do
-    string "[^"
-    x <- some regclassoption
-    -- x :: [Regex] (each a single character pattern)
-    char ']'
-    return $ fmap singleton $ sat $ not . anyp x
-
--- regcoclass :: Parser (Regex)
--- regcoclass = do
---     string "[^"
---     x <- some regcoclassoption
---     -- x :: [Regex] (each a single character pattern)
---     char ']'
---     return $ foldr1 (<|>) x
-
-
--- regcoclassoption :: Parser (Regex)
--- regcoclassoption = do
---     x <- sat (/= ']')
---     char '-'
---     y <- sat (/= ']')
---     return $ fmap singleton $ sat $ not . (\ch -> ord x <= ord ch && ord ch <= ord y)
---   <|> do
---     x <- sat $ not . (flip elem "]") 
---     -- return $ string [x]
---     return $ fmap singleton $ sat (/= x)
+reggroup :: Parser Regex
+reggroup = do
+  char '('
+  g <- regex
+  char ')'
+  return g
 
 regclassoption :: Parser (Char -> Bool)
 regclassoption = do
@@ -160,38 +136,6 @@ isSpecial = flip elem "+*?)"
 
 regcharrange :: Char -> Char -> Regex
 regcharrange x y = fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
--- wildcard = charRange 20 126
-
-
-
--- regex = some regelement
--- -- coclass must come before class, that's how it handles the starting ^
--- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
--- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
-
--- reggroup = do
---   char '('
---   g <- regex
---   char ')'
---   mod <- regmodifier
---   return $ RegGroup g mod
--- regmodifier = do
---       char '?'
---       return ZeroOrOne
---     <|> do
---       string "*?"
---       return ZeroOrMoreNongreedy
---     <|> do
---       char '*'
---       return ZeroOrMore
---     <|> do
---       string "+?"
---       return OneOrMoreNongreedy
---     <|> do
---       char '+'
---       return OneOrMore
---     <|> do return One
-
 
 solve :: [String] -> String
 solve [] = "No input"
@@ -201,13 +145,6 @@ solve (regstr:text:xs) = case safeHead parsers of
   Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
   where
     parsers = parse regex regstr
-
-
--- solve regstr = case safeHead parsers of
---   Nothing -> "Error compiling regex"
---   Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg  "Hello, world!" ++ "\"\n"
---   where
---     parsers = parse regex regstr
 
 match :: Regex -> String -> String
 match reg str = case result of
@@ -226,7 +163,7 @@ singleton :: Char -> String
 singleton x = [x]
 
 anyp :: [a -> Bool] -> (a -> Bool)
-anyp [] val = True
+anyp [] val = False
 anyp (x:xs) val = (x val) || anyp xs val
 
 allp :: [a -> Bool] -> (a -> Bool)
