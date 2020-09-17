@@ -15,7 +15,7 @@ data RegModifier = One | ZeroOrOne | ZeroOrMoreNongreedy | ZeroOrMore | OneOrMor
 -- the regex parser type parses a string out of a string
 -- regex :: Parser Regex
 regex :: Parser Regex
-regex = fmap zeroormorenongreedy regchar
+regex = regelement
 
 
 -- -- coclass must come before class, that's how it handles the starting ^
@@ -27,31 +27,55 @@ regex = fmap zeroormorenongreedy regchar
 regchar :: Parser Regex
 regchar = do
   x <- sat (not . isSpecial)
+  return $ string [x]
+  -- return (case mod of 
+  --   One -> string [x]
+  --   ZeroOrOne -> string [x] <|> do return ""
+  --   ZeroOrMore -> zeroormore $ string [x]
+  --   OneOrMore -> oneormore $ string [x]
+  --   ZeroOrMoreNongreedy -> zeroormorenongreedy $ string [x]
+  --   OneOrMoreNongreedy -> oneormorenongreedy $ string [x])
+
+regelement :: Parser Regex
+regelement = do
+  x <- regchar
   mod <- regmodifier
-  return (case mod of 
-    One -> string [x]
-    ZeroOrOne -> string [x] <|> do return ""
-    ZeroOrMore -> many $ char x
-    OneOrMore -> some $ char x
-    _ -> undefined)
+  return $ mod x
 
-
+regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
+      string "??"
+      return zerooronenongreedy
+    <|> do
       char '?'
-      return ZeroOrOne
+      return zeroorone
     <|> do
       string "*?"
-      return ZeroOrMoreNongreedy
+      return zeroormorenongreedy
     <|> do
       char '*'
-      return ZeroOrMore
+      return zeroormore
     <|> do
       string "+?"
-      return OneOrMoreNongreedy
+      return oneormorenongreedy
     <|> do
       char '+'
-      return OneOrMore
-    <|> do return One
+      return oneormore
+    <|> do return id
+
+
+zeroorone :: Regex -> Regex
+-- :: (Parser String) -> (Parser String)
+zeroorone p = P (\inp -> case (parse (some p) inp) of
+                  [] -> [("", inp)]
+                  (x:xs) -> [(head $ fst x, snd x)] ++ [("", inp)])
+
+
+zerooronenongreedy :: Regex -> Regex
+-- :: (Parser String) -> (Parser String)
+zerooronenongreedy p = P (\inp -> case (parse (some p) inp) of
+                  [] -> [("", inp)]
+                  (x:xs) -> [("", inp)] ++ [(head $ fst x, snd x)])
 
 
 oneormore :: Regex -> Regex
