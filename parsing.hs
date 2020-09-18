@@ -35,11 +35,16 @@ instance Applicative Parser where
                              []        -> []
                              [(g,out)] -> parse (fmap g px) out)
 
+-- instance Monad Parser where
+--    -- (>>=) :: Parser a -> (a -> Parser b) -> Parser b
+--    p >>= f = P (\inp -> case parse p inp of
+--                            []        -> []
+--                            [(v,out)] -> parse (f v) out)
 instance Monad Parser where
    -- (>>=) :: Parser a -> (a -> Parser b) -> Parser b
-   p >>= f = P (\inp -> case parse p inp of
-                           []        -> []
-                           [(v,out)] -> parse (f v) out)
+   p >>= f = P (\inp -> concat $ map parse' $ parse p inp)
+    where
+      parse' (v,out) = parse (f v) out
 
 -- Making choices
 
