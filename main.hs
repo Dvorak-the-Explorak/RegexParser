@@ -11,23 +11,11 @@ main = interact $
 
 type Regex = Parser String
 
-
-
-instance (Semigroup g) => Semigroup (Parser g) where
-  r1 <> r2 = do 
-      x <- r1
-      y <- r2
-      return $ x <> y
-
--- the Regex type (Parser String) parses a string out of a string
--- regex parses a Regex from a string
--- it's a Parser Parser.
-
+-- an element then more stuff OR a single element
 regex :: Parser Regex
 regex = (regelement <> regex) <|> regelement
 
--- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
-
+-- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 regelement :: Parser Regex
 regelement = do
   x <- reggroup <|> regclass <|> regchar

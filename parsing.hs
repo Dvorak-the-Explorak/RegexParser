@@ -22,9 +22,6 @@ item = P (\inp -> case inp of
 
 instance Functor Parser where
    -- fmap :: (a -> b) -> Parser a -> Parser b
-   -- fmap g p = P (\inp -> case parse p inp of
-   --                          []        -> []
-   --                          [(v,out)] -> [(g v, out)])
    fmap g p = P (\inp -> map g' $ parse p inp)
         where g' = \(v,out) -> (g v, out)
 
@@ -33,9 +30,6 @@ instance Applicative Parser where
    pure v = P (\inp -> [(v,inp)])
 
    -- <*> :: Parser (a -> b) -> Parser a -> Parser b
-   -- pg <*> px = P (\inp -> case parse pg inp of
-   --                           []        -> []
-   --                           [(g,out)] -> parse (fmap g px) out)
    pg <*> px = P (\inp -> concat $ map parse' $ parse pg inp)
             where parse' (g,out) = parse (fmap g px) out
 
@@ -52,6 +46,17 @@ instance Alternative Parser where
 
    -- (<|>) :: Parser a -> Parser a -> Parser a
    p <|> q = P (\inp -> parse p inp ++ parse q inp)
+
+
+
+-- Sequencing (algebraically rather than with do notation)
+
+instance (Semigroup g) => Semigroup (Parser g) where
+  p <> q = do 
+      x <- p
+      y <- q
+      return $ x <> y
+
 
 -- Derived primitives
 
