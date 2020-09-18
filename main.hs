@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 import Parsing
 import Data.Char (chr, ord)
 
@@ -9,26 +11,50 @@ main = interact $
 
 type Regex = Parser String
 
+instance Semigroup Regex where
+  r1 <> r2 = do 
+    x <- r1
+    y <- r2
+    return $ x ++ y
+
+joinmatch :: (String, String) -> [(String, String)] -> [(String, String)]
+joinmatch x ys = map (appfst x) ys
+
+appfst :: ([a], b) -> ([a], b) -> ([a], b)
+appfst x y = mapfst (fst x ++) y
+
+-- continuematch :: (String, String) -> Regex -> Regex
+-- continuematch (v1, rem1) r =  P (\inp -> )
+
+mapfst :: (a -> b) -> ((a,c) -> (b,c))
+mapfst f = \(x,y) -> (f x, y)
+-- mapfst f = uncurry . f . curry
+
+
+
+
 -- the regex parser type parses a string out of a string
 -- regex :: Parser Regex
 regex :: Parser Regex
-regex = regelement
-
+regex = (do
+    x <- regelement
+    y <- regex
+    return $ x <> y)
+  <|> regelement
 
 -- -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 -- regelement = regcoclass <|> regclass <|> reggroup <|> regchar
+
+regelement :: Parser Regex
+regelement = do
+  x <- reggroup <|> regclass <|> regchar
+  mod <- regmodifier
+  return $ mod x
 
 regchar :: Parser Regex
 regchar = do
   x <- sat (not . isSpecial)
   return $ string [x]
-
-regelement :: Parser Regex
-regelement = do
-  x <- reggroup <|> regclass <|> regchar
-  -- x <- regclass <|> regchar
-  mod <- regmodifier
-  return $ mod x
 
 regclass :: Parser Regex
 regclass = do
@@ -150,8 +176,13 @@ match :: Regex -> String -> String
 match reg str = case result of
     Nothing -> "nothing"
     Just x -> x
-  where result = do
-                  (result,rem) <- safeHead $ parse reg str
+  where 
+    reg' = do 
+      x <- reg
+      y <- string "o"
+      return $ x ++ y
+    result = do
+                  (result,rem) <- safeHead $ parse reg' str
                   return result
 -- match reg str = show $ parse reg str
 

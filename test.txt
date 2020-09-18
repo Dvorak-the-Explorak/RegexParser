@@ -1,2 +1,2 @@
-[A-z]+
+H
 Hello, world!
