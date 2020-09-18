@@ -101,7 +101,6 @@ zeroormore p = oneormore p <|> emptyMatch
 
 zeroormorenongreedy p = emptyMatch <|> oneormorenongreedy p
 
-
 -- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
 greedyOptions ([], rem) = []
@@ -136,7 +135,7 @@ match reg str = case result of
           return result
 
 emptyMatch :: Regex
-emptyMatch = P (\inp -> [("", inp)])
+emptyMatch = pure ""
 
 safeHead [] = Nothing
 safeHead (x:xs) = Just x

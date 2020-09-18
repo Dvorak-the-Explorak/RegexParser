@@ -1,2 +1,2 @@
-[A-z]+,? [a-z]*!
-Hello, world!
+[A-z]+\S?\s+?[^d-]*!?
+Hello, wor-ld!
