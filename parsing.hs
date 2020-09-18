@@ -31,12 +31,12 @@ instance Applicative Parser where
    pure v = P (\inp -> [(v,inp)])
 
    -- <*> :: Parser (a -> b) -> Parser a -> Parser b
-   pg <*> px = P (\inp -> concat $ map parse' $ parse pg inp)
+   pg <*> px = P (\inp -> concatMap parse' $ parse pg inp)
             where parse' (g,out) = parse (fmap g px) out
 
 instance Monad Parser where
    -- (>>=) :: Parser a -> (a -> Parser b) -> Parser b
-   p >>= f = P (\inp -> concat $ map parse' $ parse p inp)
+   p >>= f = P (\inp -> concatMap parse' $ parse p inp)
             where parse' (v,out) = parse (f v) out
 
 -- Making choices
@@ -46,11 +46,8 @@ instance Alternative Parser where
    empty = P (\inp -> [])
 
    -- (<|>) :: Parser a -> Parser a -> Parser a
-   p <|> q = P (\inp -> parse p inp ++ parse q inp)
+   p <|> q = P (\inp -> (parse p inp) ++ (parse q inp))
 
-
-
--- Sequencing (algebraically rather than with do notation)
 
 instance (Semigroup g) => Semigroup (Parser g) where
   p <> q = do 

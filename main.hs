@@ -11,9 +11,13 @@ main = interact $
 
 type Regex = Parser String
 
+
+
+
+
 -- an element then more stuff OR a single element
 regex :: Parser Regex
-regex = (regelement <> regex) <|> regelement
+regex = (regelement <> regex) <|> pure emptyMatch
 
 -- regchar at the end so that '(', '\', and '[' aren't interpreted as single characters
 regelement :: Parser Regex
@@ -33,18 +37,23 @@ regclass = do
     comp <- char '^' <|> pure '+'
     x <- some regclassoption
     char ']'
-    return (case comp of
-        '+' -> fmap singleton $ sat $ anyp x
-        '^' -> fmap singleton $ sat $ not . anyp x)
+    let p = anyp x
+    return $ fmap singleton $ sat (if comp == '^' then not . p else p)
   <|> do
     char '.'
-    return $ fmap singleton $ sat (\ch -> 20 <= ord ch && ord ch <= 126)
+    return $ fmap singleton $ sat anychar
   <|> do
     string "\\s"
-    return $ fmap singleton $ sat (flip elem " \t\n\r\f") 
+    return $ fmap singleton $ sat whitespacechar
   <|> do
     string "\\S"
-    return $ fmap singleton $ sat $ not . (flip elem " \t\n\r\f") 
+    return $ fmap singleton $ sat $ not . whitespacechar
+  <|> do
+    string "\\w"
+    return $ fmap singleton $ sat wordchar
+  <|> do
+    string "\\W"
+    return $ fmap singleton $ sat $ not . wordchar
 
 reggroup :: Parser Regex
 reggroup = do
@@ -53,15 +62,31 @@ reggroup = do
   char ')'
   return g
 
+-- regmetachar :: Parser (Char -> Bool)
+-- regmetachar = do
+  
+
 regclassoption :: Parser (Char -> Bool)
 regclassoption = do
     x <- sat (/= ']')
     char '-'
     y <- sat (/= ']')
-    return $ (\ch -> ord x <= ord ch && ord ch <= ord y)
+    return $ (\ch -> (ord x <= ord ch) && (ord ch <= ord y))
   <|> do
     x <- sat $ not . (flip elem "]") 
     return $ (== x)
+
+-- ==================================
+--     CHAR SETS :: Char -> Bool
+-- ==================================
+
+whitespacechar = flip elem " \t\n\r\f"
+anychar = charInRange ' ' '~'
+wordchar = (charInRange '0' '9') ||| (charInRange 'a' 'z') ||| (charInRange 'A' 'Z') ||| (=='_')
+
+
+charInRange x y = \ch -> ord x <= ord ch && ord ch <= ord y
+
 
 regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
@@ -82,7 +107,7 @@ regmodifier = do
     <|> do
       char '+'
       return oneormore
-    <|> do return id
+    <|> pure id
 
 
 -- ================================
@@ -117,22 +142,11 @@ isSpecial = flip elem "+*?)"
 regcharrange :: Char -> Char -> Regex
 regcharrange x y = fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
 
-solve :: [String] -> String
-solve [] = "No input"
-solve [x] = "No search text given"
-solve (regstr:text:xs) = case safeHead parsers of
-  Nothing -> "Error compiling regex"
-  Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
-  where
-    parsers = parse regex regstr
 
 match :: Regex -> String -> String
-match reg str = case result of
-    Nothing -> "nothing"
-    Just x -> x
-  where  result = do
-          (result,rem) <- safeHead $ parse reg str
-          return result
+match reg str = case parse reg str of
+    [] -> "nothing"
+    xs ->  fst $ head xs
 
 emptyMatch :: Regex
 emptyMatch = pure ""
@@ -147,6 +161,25 @@ anyp :: [a -> Bool] -> (a -> Bool)
 anyp [] val = False
 anyp (x:xs) val = (x val) || anyp xs val
 
-allp :: [a -> Bool] -> (a -> Bool)
-allp [] val = False
-allp (x:xs) val = (x val) && anyp xs val
+(|||) :: (a -> Bool) -> (a -> Bool) -> a -> Bool
+p ||| q = \x -> p x || q x
+
+nonep :: [a -> Bool] -> (a -> Bool)
+nonep [] val = True
+nonep (x:xs) val = (not $ x val) && nonep xs val
+
+solve :: [String] -> String
+solve [] = defaultSolve
+solve [x] = "No search text given"
+solve (regstr:text:xs) = case safeHead parsers of
+  Nothing -> "Error compiling regex"
+  Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
+  where
+    parsers = parse regex regstr
+
+defaultSolve :: String
+defaultSolve = show $ parse (char '^' <|> pure '+') "aaa"
+-- defaultSolve = match reg text
+--   where 
+--     reg = fst $ head $ parse regex "[a-c]"
+--     text = "aa"
