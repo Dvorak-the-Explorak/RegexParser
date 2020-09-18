@@ -1,0 +1,1360 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"any",
+				"anySquares"
+			],
+			[
+				"an",
+				"anySquaresP1Wrong"
+			],
+			[
+				"mutex",
+				"mutex_wait"
+			],
+			[
+				"start",
+				"start_wait"
+			],
+			[
+				"mut",
+				"mutex_wait"
+			],
+			[
+				"bo",
+				"bogoTTest"
+			],
+			[
+				"all",
+				"allowed_backup"
+			],
+			[
+				"ad",
+				"advantage"
+			],
+			[
+				"adv",
+				"advantage_cdf"
+			],
+			[
+				"plu",
+				"plus5_cdf"
+			],
+			[
+				"filen",
+				"filename_extension"
+			],
+			[
+				"num",
+				"num_students"
+			],
+			[
+				"urlope",
+				"urlopen_count"
+			],
+			[
+				"pl",
+				"plural_name"
+			],
+			[
+				"Impr",
+				"ImportError"
+			],
+			[
+				"check",
+				"check_module_allowed"
+			],
+			[
+				"mo",
+				"module_valid"
+			],
+			[
+				"nex",
+				"next_send"
+			],
+			[
+				"step",
+				"step_unpacked"
+			],
+			[
+				"ste",
+				"step_unpacked"
+			],
+			[
+				"res",
+				"res_unpacked"
+			],
+			[
+				"setp",
+				"step_unpacked"
+			],
+			[
+				"test_ste",
+				"test_step_unpacked"
+			],
+			[
+				"unp",
+				"unpacked"
+			],
+			[
+				"emp",
+				"empty"
+			],
+			[
+				"test_",
+				"test_pack_unpack"
+			],
+			[
+				"test",
+				"test_dropn"
+			],
+			[
+				"add",
+				"addHands"
+			],
+			[
+				"empty",
+				"emptyHand"
+			],
+			[
+				"Read",
+				"ReadBuffer"
+			],
+			[
+				"pen",
+				"pen_dir"
+			],
+			[
+				"after",
+				"afterpoint"
+			],
+			[
+				"lced_",
+				"lcd_write_string"
+			],
+			[
+				"lcd_cur",
+				"lcd_cursor"
+			],
+			[
+				"htm",
+				"html_contents"
+			],
+			[
+				"save",
+				"save_file"
+			],
+			[
+				"last",
+				"last_name"
+			],
+			[
+				"sear",
+				"searchbox"
+			],
+			[
+				"first",
+				"first_name"
+			],
+			[
+				"firs",
+				"first-name"
+			],
+			[
+				"staff",
+				"staff_window"
+			],
+			[
+				"print",
+				"print_hash"
+			],
+			[
+				"run",
+				"run_tests"
+			],
+			[
+				"uin",
+				"uint32_t"
+			],
+			[
+				"read",
+				"readFile"
+			],
+			[
+				"end",
+				"endif"
+			],
+			[
+				"word",
+				"word_to_binary"
+			],
+			[
+				"squ",
+				"square_root_fractional_part"
+			],
+			[
+				"cub",
+				"cube_root_fractional_part"
+			],
+			[
+				"ov",
+				"overhang_words"
+			],
+			[
+				"over",
+				"overhang_bits"
+			],
+			[
+				"overhang",
+				"overhang_bits"
+			],
+			[
+				"overhan",
+				"overhang_bytes"
+			],
+			[
+				"overh",
+				"overhang_bits"
+			],
+			[
+				"overha",
+				"overhang_bytes"
+			],
+			[
+				"sq",
+				"square_root_fractional_part"
+			],
+			[
+				"p",
+				"cube_root_fractional_part"
+			],
+			[
+				"LCD_DATA4",
+				"LCD_DATA4_PORT"
+			],
+			[
+				"LCD_RS",
+				"LCD_RS_DDR"
+			],
+			[
+				"writes",
+				"write_string"
+			],
+			[
+				"scr",
+				"scrollDisplayLeft"
+			],
+			[
+				"com",
+				"common_factors"
+			],
+			[
+				"x",
+				"x_factors"
+			],
+			[
+				"cc",
+				"cc_coefficients"
+			],
+			[
+				"new",
+				"new_primes"
+			],
+			[
+				"prime",
+				"prime_candidates"
+			],
+			[
+				"coffe",
+				"coffee_names"
+			],
+			[
+				"coff",
+				"coffee_names"
+			],
+			[
+				"url",
+				"urlopen"
+			],
+			[
+				"SC",
+				"SCREEN_WIDTH_CHAR"
+			],
+			[
+				"SCRE",
+				"SCREEN_WIDTH_CHAR"
+			],
+			[
+				"uart_put",
+				"uart_putstring"
+			],
+			[
+				"uart",
+				"uart_putstring"
+			],
+			[
+				"SCR",
+				"SCREEN_WIDTH"
+			],
+			[
+				"scree",
+				"SCREEN_SIZE"
+			],
+			[
+				"bit",
+				"bit_row"
+			],
+			[
+				"set",
+				"setCursor"
+			],
+			[
+				"bmp",
+				"bmp_id"
+			],
+			[
+				"long",
+				"long_path"
+			],
+			[
+				"The",
+				"the_window"
+			],
+			[
+				"the",
+				"the_window"
+			],
+			[
+				"next",
+				"next_town"
+			],
+			[
+				"rand",
+				"random_path"
+			],
+			[
+				"make",
+				"make_links"
+			],
+			[
+				"get",
+				"get_pronunciation"
+			],
+			[
+				"pron",
+				"pronunciation"
+			],
+			[
+				"IPA",
+				"IPA_span"
+			],
+			[
+				"IP",
+				"IPA_span"
+			],
+			[
+				"wiki",
+				"wiki_page"
+			],
+			[
+				"country",
+				"country_code"
+			],
+			[
+				"city",
+				"city_code"
+			],
+			[
+				"dep",
+				"departure_city"
+			],
+			[
+				"airlin",
+				"airline_db"
+			],
+			[
+				"mask",
+				"mask_size"
+			],
+			[
+				"fin",
+				"find_conv"
+			],
+			[
+				"curre",
+				"currentRow"
+			],
+			[
+				"Tok",
+				"Token_1"
+			],
+			[
+				"jump",
+				"jumpIsValid"
+			],
+			[
+				"time",
+				"time_machine_text"
+			],
+			[
+				"alterna",
+				"alternate-reverse\tanimation-direction"
+			],
+			[
+				"margi",
+				"margin-right\tproperty"
+			],
+			[
+				"text",
+				"text-align\tproperty"
+			],
+			[
+				"margin",
+				"margin-left\tproperty"
+			],
+			[
+				"btn",
+				"btn_2"
+			],
+			[
+				"lab",
+				"lab_countdown"
+			],
+			[
+				"lead",
+				"leading_sep"
+			],
+			[
+				"T",
+				"T_global"
+			],
+			[
+				"apply",
+				"applyMatrix"
+			],
+			[
+				"skip",
+				"skipWhitespace"
+			],
+			[
+				"string",
+				"stringSample"
+			],
+			[
+				"init",
+				"led_init"
+			],
+			[
+				"solv",
+				"solve_iterative"
+			],
+			[
+				"fist",
+				"firstControl"
+			],
+			[
+				"prev",
+				"prevControl"
+			],
+			[
+				"l",
+				"lineto"
+			],
+			[
+				"path",
+				"path_string"
+			],
+			[
+				"rea",
+				"readNum"
+			],
+			[
+				"adc",
+				"adc_read"
+			],
+			[
+				"usb",
+				"usb_mouse_buttons"
+			],
+			[
+				"proces",
+				"process_joystick_mouse"
+			],
+			[
+				"USB",
+				"USB_OBJ"
+			],
+			[
+				"screen",
+				"ScreenInfo"
+			],
+			[
+				"fro",
+				"fromFSmooth"
+			],
+			[
+				"from",
+				"fromFPoly"
+			],
+			[
+				"abs",
+				"abstractmethod"
+			],
+			[
+				"butt",
+				"buttonClickCheck"
+			],
+			[
+				"ma",
+				"max_dt"
+			],
+			[
+				"draw",
+				"drawNormal"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.hs",
+			"settings":
+			{
+				"buffer_size": 4972,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "parsing.hs",
+			"settings":
+			{
+				"buffer_size": 3218,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "test.txt",
+			"settings":
+			{
+				"buffer_size": 29,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/python_marking.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"XeLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/python_marking.sublime-build",
+					""
+				],
+				[
+					"Packages/User/python_marking.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/python_marking.sublime-build",
+					"Precheck"
+				],
+				[
+					"Packages/User/python_marking.sublime-build",
+					"Precheck (verbose)"
+				]
+			],
+			[
+				"Packages/User/python_marking.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"packageres",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"package control ins",
+				"Package Control: Install Package"
+			],
+			[
+				"s",
+				"Sublundo: Visualize"
+			],
+			[
+				"subl",
+				"Sublundo: Visualize"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Equation"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"upgr",
+				"Package Control: Upgrade/Overwrite All Packages"
+			]
+		],
+		"width": 444.0
+	},
+	"console":
+	{
+		"height": 514.0,
+		"history":
+		[
+			"pip",
+			"print(('='*100 + '\\n')*100)",
+			"^C",
+			"print('\\n'*1000)",
+			"clear",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/joete/Documents/DnD/Andrews_kronos_campaign/story.txt",
+		"/C/Users/joete/Documents/DnD/Andrews_kronos_campaign/dokholim_greyfury.txt",
+		"/C/Users/joete/Documents/Github/RegexParser/parsing.hs",
+		"/C/Users/joete/AppData/Roaming/Sublime Text 3/Packages/Haskell/Haskell.sublime-build",
+		"/C/Users/joete/AppData/Roaming/Sublime Text 3/Packages/User/haskell_test.sublime-build",
+		"/C/Users/joete/AppData/Roaming/Sublime Text 3/Packages/User/Haskell.sublime-settings",
+		"/C/Users/joete/Documents/sorts.hs",
+		"/C/Users/joete/Dropbox/PolySplitter/translation.cs",
+		"/C/Users/joete/Dropbox/Dell Server/LVM_management.txt",
+		"/C/Users/joete/Dropbox/Dell Server/general_server_stuff.txt",
+		"/Z/no_squares.py",
+		"/C/Users/joete/Documents/DnD/Andrews_kronos_campaign/rolls.py",
+		"/Z/nosq_solutions.txt",
+		"/Z/bogo_1_0.py",
+		"/Z/nosq7x7_solutions.txt",
+		"/Z/nosq_200_solutions.txt",
+		"/C/Users/joete/Dropbox/Bogo/bogo_1_0.py",
+		"/C/Users/joete/Documents/matt_parker_puzzles/no_squares.py",
+		"/C/Users/joete/.ssh/id_rsa.pub",
+		"/C/Users/joete/.sshid_rsa.pub",
+		"/C/Users/joete/Dropbox/project_ideas/ML_stuff.txt",
+		"/C/Users/joete/Dropbox/Dell Server/specs.txt",
+		"/C/Users/joete/OneDrive/Documents/BMT/3d_movement.txt",
+		"/C/Users/joete/Documents/RR_cars.txt",
+		"/C/Users/joete/Documents/DnD/music.txt",
+		"/C/Users/joete/Documents/38c77f3537ea41cd8bed0f953cbac25c_testq18.c",
+		"/C/Users/joete/Downloads/testq18.c",
+		"/C/Users/joete/OneDrive/Documents/BMT/bmm_locator_19_jun_20.txt",
+		"/C/Users/joete/Documents/project_ideas/hardware_stuff.txt",
+		"/C/Users/joete/OneDrive/Documents/BMT/3d_movement",
+		"/C/Users/joete/Downloads/2181050a32b14b1d8c5d27e08b04ffea_wa_min_month.py",
+		"/C/Users/joete/Downloads/7e041dee3ab541b38a11353e93d7fc77_wa_min_month.py",
+		"/C/Users/joete/Downloads/b3e5e58c7b89449fad64261be5a8eb5c_wa_min_month.py",
+		"/C/Users/joete/Downloads/21682d75e3184beabd139e6aaca98310_wa_min_month.py",
+		"/C/Users/joete/Downloads/f833b84899f44cc88dcc71f0b9ba3390_wa_min_month.py",
+		"/C/Users/joete/Downloads/34406f56ef4c48958695c37ced706abb_wa_min_month.py",
+		"/C/Users/joete/Downloads/748b8a64388e4fafb3aeefc52998b151_wa_min_month.py",
+		"/C/Users/joete/Downloads/d8427548088e4e30b664ff6fbbe269a7_wa_min_month.py",
+		"/C/Users/joete/Downloads/6da6387b3b7341bcb9f102aa607e8d3c_wa_min_month.py",
+		"/C/Users/joete/Downloads/a20282ad43854dca912b22f8d0037840_wa_min_month.py",
+		"/C/Users/joete/Downloads/d8917d5433dd4e5385c9e7fe21c2aed3_wa_min_month.py",
+		"/C/Users/joete/Downloads/9e353e1ca401463baaeb4e1bc24f8a57_wa_min_month.py",
+		"/C/Users/joete/Downloads/be1664b8d09849b9b8afcab81ec0e6d1_wa.py",
+		"/C/Users/joete/Downloads/423e613d89194316bfe1cc661cf4a194_wa_min_month.py",
+		"/C/Users/joete/Downloads/700a998401174cb7848a833fd85dfc7b_wa_min_month.py",
+		"/C/Users/joete/Downloads/ee69d0e456714f488a95ffff583c25b4_wa_min_month.py",
+		"/C/Users/joete/Downloads/d53890cc492046f9ab8dca967558e64c_wa_min_month_mark_auman.py",
+		"/C/Users/joete/Downloads/56527c7cc2f94ba79b2469aebe846446_wa_min_month.py",
+		"/C/Users/joete/Downloads/ffb8c2bd6d5f46bf88017b3207705274_wa_min_month.py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/marking_notes.txt",
+		"/C/Users/joete/Downloads/9bf78201ad0b44d39af2b160712176f6_wa_min_month.py",
+		"/C/Users/joete/Downloads/253cda358171454abd761f3adcdf7912_wa_min_month.py",
+		"/C/Users/joete/Downloads/535c2a8dbbb043118f63807da3e8df5b_wa_min_month.py",
+		"/C/Users/joete/Downloads/2f1cf71a165948c59f74256bdb7b71db_wa_min_month.py",
+		"/C/Users/joete/Downloads/eb697bca23e3442daa5c56bab976fea5_wa_min_month.py",
+		"/C/Users/joete/Downloads/e29b6a36caa24b03b93414c881144888_8.py",
+		"/C/Users/joete/Downloads/704e9f02e99e41088b9d371858050878_wa_min_month.py",
+		"/C/Users/joete/Downloads/7d17585ac6514d80a1f53ec2f29ae12a_wa_min_month.py",
+		"/C/Users/joete/Downloads/c7d3f174a2c748099e000681411ca6e6_wa_min_month.py",
+		"/C/Users/joete/Downloads/30e4d6ce10b942f39dfc497260bd670b_wa_min_month.py",
+		"/C/Users/joete/Downloads/fb7b02b2b9fd4eafae7f580121da398e_wa_min_month.py",
+		"/C/Users/joete/Downloads/b8a311d0b9de48358c56759ee6b55dd0_wa_min_month.py",
+		"/C/Users/joete/Downloads/f092efdb380d453f9ad657dec5a6beac_wa_min_month.py",
+		"/C/Users/joete/Downloads/43ec3b99f0f44031bfa8ca735fa80ca5_wa_min_month.py",
+		"/C/Users/joete/Downloads/95b59af18d854c1e86b8e4567ab54421_wa_min_monthly.py",
+		"/C/Users/joete/Downloads/3ab2c47f20554c718c7ba3c5558924c0_wa_min_month.py",
+		"/C/Users/joete/Downloads/a1e5eb1d45704191990a61f374784241_wa_min_month.py",
+		"/C/Users/joete/Downloads/b1db1960d12b492aaaae098e1c8b0361_wa_min_month.py",
+		"/C/Users/joete/Downloads/888da282c9744fe49a9c0e576e025e96_wa_max_month.py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/Q8-solutions.py",
+		"/C/Users/joete/Downloads/ea94bc9d41b44d40babba1b11ddb93e8_wa_max_month (1).py",
+		"/C/Users/joete/Downloads/0932bb06eee64cc5953a622b25f130aa_wa_max_month.py",
+		"/C/Users/joete/Downloads/0e34df452c814f6c8f4933218a173c32_wa_max_month.py",
+		"/C/Users/joete/Downloads/2d4722b92e694024b4468bd2f5ea421c_wa_max_month.py",
+		"/C/Users/joete/Downloads/f76482baf67f4b85be71b6fb8ab70cb6_wa_max_month.py",
+		"/C/Users/joete/Downloads/e546af735fcb434d93dd62b537ed059b_wa_max_month.py",
+		"/C/Users/joete/Downloads/64e30982fbe8461ba1606317b750390a_wa_max_month.py",
+		"/C/Users/joete/Downloads/ddf92cfedc8241a7926368e0abf65fe0_wa_max_month.py",
+		"/C/Users/joete/Downloads/3f55de1a33c04ef4ae07963237ff45be_wa_max_month.py",
+		"/C/Users/joete/Downloads/798714b3262d45d9b1adbec787a8882b_TEST_Q8.py",
+		"/C/Users/joete/Downloads/aeee4e4161b84c05b412fe122fb69695_wa_max_month.py",
+		"/C/Users/joete/Downloads/3c75596576594aa08af87f9b67332b3e_wa_max_month.py",
+		"/C/Users/joete/Downloads/378a2d53f6304c3ea393e677769cae89_wa_max_month.py",
+		"/C/Users/joete/Downloads/67c800a4c7ec49e5954ae30c050453d3_wa_max_month.py",
+		"/C/Users/joete/Downloads/053460a5ba2d41db9bcd20c4dd2dc6a7_wa_max_month.py",
+		"/C/Users/joete/Downloads/714cdd9ceaeb4259bfb3fb3a0ab55f2b_wa_max_month.py",
+		"/C/Users/joete/Downloads/9d9bac28b1cb40f1940954e901573bd1_wa_max_month.py",
+		"/C/Users/joete/Downloads/fea63d750da4475fb387c918dd69cc03_wa_max_month.py",
+		"/C/Users/joete/Downloads/ab6162cbc0eb491492ead9390e2bc43b_wa_max_month.py",
+		"/C/Users/joete/Downloads/c674b79f48fd467fb3b1c1651d0b4ccf_wa_max_month.py",
+		"/C/Users/joete/Downloads/05c9e7850db7450bb0226350f100fcdf_wa_max_month.py",
+		"/C/Users/joete/Downloads/f83624f565cf4514a0788ada6b7ea5a7_wa_max_month.py",
+		"/C/Users/joete/Downloads/4817f9608e874e87b0c93bb9bdb6cd5e_wa_max_month.py",
+		"/C/Users/joete/Downloads/cfd5dc8c75ba4b51baba17d36035181b_n10760474_wa_max_month.py",
+		"/C/Users/joete/Downloads/717fc640f6ed46c79a216fe8c4fc5833_wa_max_month.py",
+		"/C/Users/joete/Downloads/302f55a305344f8697b6fdc73aa82c43_wa_max_month.py",
+		"/C/Users/joete/Downloads/993a49dc77a346119c721254ced3e652_wa_max_month.py",
+		"/C/Users/joete/Downloads/b0f0ffbd7672475a849a08c632ef0c7e_wa_max_month.py",
+		"/C/Users/joete/Downloads/cb26406b0b2341499fda0edc6d6b0c58_wa_max_month.py",
+		"/C/Users/joete/Downloads/1a404912ec9f42e78550dbc4ffd3feae_wa_max_month.py",
+		"/C/Users/joete/Downloads/9d66c15c80bd4359944bb52c75b5afee_wa_max_month.py",
+		"/C/Users/joete/Downloads/9d66c15c80bd4359944bb52c75b5afee_wa_max_month (1).py",
+		"/C/Users/joete/Downloads/031ffc07c1fa4f638b39d3ba3219de4d_wa_max_month_will_doyle.py",
+		"/C/Users/joete/Downloads/9b834789ece249bc84dcecc8ae6b5963_wa_max_month.py",
+		"/C/Users/joete/Downloads/9b834789ece249bc84dcecc8ae6b5963_wa_max_month (1).py",
+		"/C/Users/joete/Downloads/22715807b02642c39fcbf523db973fe5_wa_max_month.py",
+		"/C/Users/joete/Downloads/1030e1cc1a2445b68c3e03df0575aa43_wa_max_month.py",
+		"/C/Users/joete/Downloads/f7a2473d51c345188002f43e11dbb1d4_wa_max_month.py",
+		"/C/Users/joete/Downloads/4dde9d0f18e34a008abc29162be338d6_d85a2952ef9b4dabbaeab2464c3627a0_wa_max_month__1_.py",
+		"/C/Users/joete/Downloads/38997c4aff6a470db12f3ea664f99e86_wa_max_month_modified__failed_.py",
+		"/C/Users/joete/Downloads/6e0169878f6a41b2b05fe73f80e2e5b2_wa_max_month.py",
+		"/C/Users/joete/Downloads/746e6aa8ccb542b0a08c4003d5b9994e_Selwyn_Liang_wa_max_month.py",
+		"/C/Users/joete/Documents/CAB202/2020_sem_1/marking_notes.txt",
+		"/C/Users/joete/Documents/project_ideas/ML_stuff.txt",
+		"/C/Users/joete/Downloads/5da990a6084b4490815420bf5ccf6a4b_wa_max_month (6).py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/blackboard_responses_Q8_V1.html",
+		"/C/Users/joete/Documents/CAB202/2020_sem_1/MARKING.txt",
+		"/C/Users/joete/Documents/project_ideas/misc_stuff.txt",
+		"/C/Users/joete/Downloads/5da990a6084b4490815420bf5ccf6a4b_wa_max_month (4).py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/downloader.js",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/marker.py",
+		"/C/Users/joete/OneDrive/Documents/Tutor/IFB104/19s2/a2_precheck.py",
+		"/C/Users/joete/OneDrive/Documents/Tutor/IFB104/20s1/A2_marking.txt",
+		"/C/Users/joete/Downloads/SolutionsAndTestHarnesses/SolutionsAndTestHarnesses/Q8-solutions.py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/a1h.py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/submissions/ethan_bett.py",
+		"/C/Users/joete/Documents/IFB104/2020_exam_marking/downloader.py",
+		"/C/Users/joete/Downloads/IFB104_Assignment_2_AndrewWilks_n10768009/stay_home_shopping.py"
+	],
+	"find":
+	{
+		"height": 44.0
+	},
+	"find_in_files":
+	{
+		"height": 340.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"mapfst",
+			"appfst",
+			"joinmatch",
+			"safeHead",
+			"RegModifier",
+			"match",
+			"vs",
+			"and",
+			"if ([^:]+):",
+			"append",
+			"self",
+			"# ",
+			"Vertex",
+			"Chronos",
+			"chronos",
+			"chronus",
+			"None",
+			"msvcrt",
+			"kbfunc",
+			"msvcrt",
+			"not",
+			"\\n",
+			"PIN",
+			"PIND",
+			"ISR",
+			"read_potentiometer",
+			"LED",
+			"UART",
+			"Timer",
+			"TCCR",
+			"buttonPushed",
+			"PIN",
+			"PIND",
+			"PINB",
+			"ISR",
+			"OCR",
+			"TCCR",
+			"val",
+			"controlAnalog",
+			"was_pressed",
+			"state_check",
+			"BUZZ",
+			"Inter",
+			"initializeGraphics",
+			"buttonPush",
+			"button",
+			"buttonPush",
+			"buttonPushed",
+			"distance",
+			"DrawPacMan",
+			"score",
+			"lcd_write_string",
+			"score",
+			"uart_get_string",
+			"uart_getbyte",
+			"shift_int",
+			"f",
+			"shift_timer",
+			"b_setlight_v",
+			"em",
+			"update_pwm",
+			"overflow_counter",
+			"ISR",
+			"setup_timer_shift",
+			"TCCR1",
+			"void light_on",
+			"pulse\\(",
+			"pulse(void",
+			"<Unanswered",
+			"<unanswered",
+			"<a",
+			"ast_check_imports",
+			"meta_value_2",
+			"<span class=\"reorder\">",
+			"<li class=\"clearfix liItem",
+			"\"contentListRight[^`]*?Given Answer[^`]*?(<[aU])",
+			"\"contentListRight[^`]*?Given Answer[^`]*?<[aU]",
+			"\"contentListRight[^`]*?Given Answer[^`]*?<a",
+			"\"contentListRight[^`]*?Given Answer",
+			"contentListRight\"[^`]*?Given Answer",
+			"contentListRight[^`]*?Given Answer",
+			"contentListRight.*?Given Answer",
+			"Tasman Law",
+			"Given Answer",
+			"products",
+			"Products",
+			"print_products",
+			"connect",
+			"def html",
+			"html",
+			"Tk()",
+			"urlopen",
+			"show_product",
+			"showbutton1",
+			"show_button",
+			"Show",
+			"url1",
+			"open",
+			"ards",
+			"alls",
+			"to download",
+			"download",
+			"class",
+			"PC_URL",
+			"set1",
+			"etsy",
+			"computerdisplay",
+			"set3",
+			"Misc",
+			"plural",
+			"\\{([^}]+)\\} \\{plural\\(('[^']*'), \\1\\)\\}",
+			"\\{([^}]+)\\} ",
+			"\\{([^]+)\\} ",
+			"\\{([^]+)\\} \\{plural\\(('[^']*'), \\1\\)\\}",
+			"plural",
+			"calls",
+			"y",
+			"def y",
+			"sh.y",
+			"pay",
+			"sqlite",
+			"cursor",
+			"open",
+			"connect",
+			"download",
+			"urlopen",
+			"download",
+			"images"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"&&",
+			"if (\\1)",
+			"push",
+			"//",
+			"cVertex",
+			"Chronus",
+			"chronus",
+			"+",
+			"Given Answer: \\1",
+			"Given Answer",
+			"{english_count(\\1, \\2)}",
+			"\\2\\1",
+			"\\1\\3\\2",
+			"11\\1",
+			"11/1",
+			"\\1.numcards()",
+			"dropn",
+			"Hand(playcol, [\\1])",
+			"\\1.drop1n(\\2)",
+			"\\1.drop1()",
+			"\\1.topsize()",
+			"\\1.isEmpty()",
+			"\\1.topcol",
+			"printf",
+			"\\n",
+			"\\n}",
+			",\\n\\t",
+			"\\n{",
+			"\\n",
+			"\"",
+			"\\n",
+			",\\n",
+			"int \\1(",
+			"\\1",
+			"",
+			"\\1",
+			"0x\\1, ",
+			"\\1, ",
+			"0x\\1, ",
+			"VERBOSE",
+			", ",
+			"(void)",
+			"lcd_write_string(",
+			"_lcd_initialized",
+			"_lcd_displaymode",
+			"_lcd_displaycontrol",
+			"_lcd_displayfunction",
+			"lcd_displaymode",
+			"lcd_displaycontrol",
+			"lcd_displayfunction",
+			"lcd_pulseEnable(",
+			"lcd_write8bits(",
+			"lcd_write4bits(",
+			"lcd_setCursor(",
+			"lcd_createChar(",
+			"lcd_noAutoscroll(",
+			"lcd_autoscroll(",
+			"lcd_rightToLeft(",
+			"lcd_leftToRight(",
+			"lcd_cursor(",
+			"lcd_noCursor(",
+			"lcd_blink(",
+			"lcd_noBlink(",
+			"lcd_display(",
+			"lcd_noDisplay(",
+			"lcd_send(",
+			"lcd_write(",
+			"lcd_data(",
+			"lcd_command(",
+			"lcd_home()",
+			"lcd_clear()",
+			"\\n",
+			"SCREEN_SIZE",
+			"SCREEN",
+			"}",
+			"{",
+			"}",
+			"{",
+			"]",
+			"_delay_us",
+			"",
+			"\\1\\n",
+			"\\n",
+			"",
+			"\\1\\n\\2",
+			"\\1\\n",
+			"\\n",
+			"",
+			" \"\\1\", ",
+			" \\1, ",
+			", ",
+			"",
+			"\\n",
+			"\\n\\1",
+			"\\n",
+			"WA\\n",
+			"\\n",
+			"SA\\n",
+			"NSW\\n",
+			"QLD\\n",
+			"NT\\n",
+			"TAS\\n",
+			"VIC\\n",
+			"",
+			"def t\\1()",
+			"(\\1,\\2,\\3), (\\3,\\2,\\1)",
+			"(\\1,\\3,\\2)",
+			"(\\1,\\2,\\3)",
+			"(\\1,\\3): \\2",
+			"(\\1): \\2",
+			"a(\\1)",
+			"TimeMachineContents",
+			"\\1 -",
+			"Warning:",
+			"\\1, ",
+			"",
+			"\\n",
+			"",
+			"input",
+			"turtle",
+			" ",
+			"supply",
+			" ",
+			"arg 2",
+			"arg 3",
+			"dest 1",
+			"dest 3",
+			" "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.hs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4972,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4533,
+								4533
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Haskell/Haskell.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "parsing.hs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3218,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1143,
+								1143
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Haskell/Haskell.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 500.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "test.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.654166666667,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 340.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 378.0
+	},
+	"output.sublundo":
+	{
+		"height": 192.0
+	},
+	"pinned_build_system": "Packages/User/haskell_test.sublime-build",
+	"project": "RegexParser.sublime-project",
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Users\\joete\\Dropbox\\QUT\\thesis\\01_introduction\\chapter1.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

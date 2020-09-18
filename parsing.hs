@@ -56,9 +56,7 @@ instance Alternative Parser where
    empty = P (\inp -> [])
 
    -- (<|>) :: Parser a -> Parser a -> Parser a
-   p <|> q = P (\inp -> case parse p inp of
-                           []        -> parse q inp
-                           xs -> xs)
+   p <|> q = P (\inp -> parse p inp ++ parse q inp)
 
 -- Derived primitives
 

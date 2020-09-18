@@ -97,38 +97,24 @@ regmodifier = do
     <|> do return id
 
 zeroorone :: Regex -> Regex
--- :: (Parser String) -> (Parser String)
-zeroorone p = P (\inp -> case (parse (some p) inp) of
-                  [] -> [("", inp)]
-                  (x:xs) -> [(head $ fst x, snd x)] ++ [("", inp)])
+zeroorone p = P (\inp -> (parse p inp) ++ [("", inp)])
 
 zerooronenongreedy :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
-zerooronenongreedy p = P (\inp -> case (parse (some p) inp) of
-                  [] -> [("", inp)]
-                  (x:xs) -> [("", inp)] ++ [(head $ fst x, snd x)])
+zerooronenongreedy p = P (\inp -> [("", inp)] ++  (parse p inp))
 
 oneormore :: Regex -> Regex
 -- :: (Parser String) -> (Parser String)
-oneormore p = P (\inp -> case (parse (some p) inp) of
-                  [] -> []
-                  (x:xs) -> greedyOptions x)
+oneormore p = P (\inp ->  concat $ map greedyOptions $ parse (some p) inp)
 
 oneormorenongreedy :: Regex -> Regex
-oneormorenongreedy p = P (\inp -> case (parse (some p) inp) of
-                  [] -> []
-                  (x:xs) -> nongreedyOptions x)
+oneormorenongreedy p = P (\inp ->  (concat $ map nongreedyOptions $  parse (some p) inp))
 
 zeroormore :: Regex -> Regex
--- :: (Parser String) -> (Parser String)
-zeroormore p = P (\inp -> case (parse (some p) inp) of
-                  [] -> [("", inp)]
-                  (x:xs) -> greedyOptions x ++ [("", inp)])
+zeroormore p = P (\inp -> (concat $ map greedyOptions $  parse (some p) inp) ++ [("", inp)])
 
 zeroormorenongreedy :: Regex -> Regex
-zeroormorenongreedy p = P (\inp -> case (parse (some p) inp) of
-                  [] -> [("", inp)]
-                  (x:xs) -> [("", inp)] ++ nongreedyOptions x)
+zeroormorenongreedy p = P (\inp -> [("", inp)] ++ (concat $ map nongreedyOptions $  parse (some p) inp))
 
 -- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
@@ -160,10 +146,11 @@ match reg str = case result of
     Nothing -> "nothing"
     Just x -> x
   where  result = do
-                (result,rem) <- safeHead $ parse reg str
-                return result
--- match reg str = show $ parse reg str
+          (result,rem) <- safeHead $ parse reg str
+          return result
 
+emptyMatch :: Regex
+emptyMatch = P (\inp -> [("", inp)])
 
 safeHead [] = Nothing
 safeHead (x:xs) = Just x
