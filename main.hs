@@ -96,25 +96,23 @@ regmodifier = do
       return oneormore
     <|> do return id
 
-zeroorone :: Regex -> Regex
-zeroorone p = P (\inp -> (parse p inp) ++ [("", inp)])
 
-zerooronenongreedy :: Regex -> Regex
--- :: (Parser String) -> (Parser String)
-zerooronenongreedy p = P (\inp -> [("", inp)] ++  (parse p inp))
+-- ================================
+--    MODIFIERS :: Regex -> Regex
+-- ================================
 
-oneormore :: Regex -> Regex
--- :: (Parser String) -> (Parser String)
+zeroorone p = p <|> emptyMatch
+
+zerooronenongreedy p = emptyMatch <|> p
+
 oneormore p = P (\inp ->  concat $ map greedyOptions $ parse (some p) inp)
 
-oneormorenongreedy :: Regex -> Regex
 oneormorenongreedy p = P (\inp ->  (concat $ map nongreedyOptions $  parse (some p) inp))
 
-zeroormore :: Regex -> Regex
-zeroormore p = P (\inp -> (concat $ map greedyOptions $  parse (some p) inp) ++ [("", inp)])
+zeroormore p = oneormore p <|> emptyMatch
 
-zeroormorenongreedy :: Regex -> Regex
-zeroormorenongreedy p = P (\inp -> [("", inp)] ++ (concat $ map nongreedyOptions $  parse (some p) inp))
+zeroormorenongreedy p = emptyMatch <|> oneormorenongreedy p
+
 
 -- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
