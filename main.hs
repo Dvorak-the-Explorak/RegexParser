@@ -20,6 +20,7 @@ instance Semigroup Regex where
 -- the Regex type (Parser String) parses a string out of a string
 -- regex parses a Regex from a string
 -- it's a Parser Parser.
+
 regex :: Parser Regex
 regex = (do
     x <- regelement
