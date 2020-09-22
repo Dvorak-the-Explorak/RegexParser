@@ -47,14 +47,21 @@ regchar = do
   return $ string [x]
 
 regclass :: Parser Regex
-regclass = do
-    char '['
-    comp <- char '^' <|> pure '+'
-    x <- some regclassoption
-    char ']'
-    let p = anyp x
-    return $ fmap singleton $ sat (if comp == '^' then not . p else p)
-  <|> fmap (fmap singleton . sat ) regspecialcharset
+-- take a predicate (Char -> Bool), 
+--    select one character that satisfies it, 
+--    treat it as a string of length 1
+regclass = fmap (fmap singleton . sat) pred
+  where 
+    pred = do 
+        char '[' 
+        -- alternative value doesn't need to be +, can be anything
+        --  #TODO something better here, like a Maybe Char or something
+        comp <- char '^' <|> pure '+'
+        x <- some regclassoption
+        char ']'
+        let p = anyp x
+        return $ if comp == '^' then not . p else p
+      <|> regspecialcharset
 
 reggroup :: Parser Regex
 reggroup = do

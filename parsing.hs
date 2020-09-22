@@ -1,6 +1,8 @@
 -- Functional parsing library from chapter 13 of Programming in Haskell,
 -- Graham Hutton, Cambridge University Press, 2016.
---  (with modifications)
+--  (with modifications, mostly utilising the list type 
+--    (rather than using it like a maybe)
+--    and adding )
 
 module Parsing (module Parsing, module Control.Applicative) where
 
