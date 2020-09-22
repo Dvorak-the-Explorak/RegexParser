@@ -52,10 +52,11 @@ instance Alternative Parser where
 
 
 instance (Semigroup g) => Semigroup (Parser g) where
-  p <> q = do 
-      x <- p
-      y <- q
-      return $ x <> y
+  -- p <> q = do 
+  --     x <- p
+  --     y <- q
+  --     return $ x <> y
+  p <> q = p >>= (\x -> fmap (x <>) q)
 
 
 -- Derived primitives
