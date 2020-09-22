@@ -54,9 +54,7 @@ regclass = do
     char ']'
     let p = anyp x
     return $ fmap singleton $ sat (if comp == '^' then not . p else p)
-  <|> do
-    pred <- regspecialcharset
-    return $ fmap singleton $ sat pred
+  <|> fmap (fmap singleton . sat ) regspecialcharset
 
 reggroup :: Parser Regex
 reggroup = do
@@ -64,10 +62,6 @@ reggroup = do
   g <- regex
   char ')'
   return g
-
--- regmetachar :: Parser (Char -> Bool)
--- regmetachar = do
-  
 
 regclassoption :: Parser (Char -> Bool)
 regclassoption = do
