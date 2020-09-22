@@ -1,10 +1,25 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 import Parsing
-import Data.Char (chr, ord)
+import Data.Char (chr, ord)  
+import System.Environment
 
-main = interact $
-  solve . lines
+-- main = interact $
+--   solve . lines
+
+main = testmain
+
+testmain = do
+  regstr <- getLine
+  text <- getLine
+  let parsers = parse regex regstr
+  putStrLn $ case parse regex regstr of
+    [] -> "Error compiling regex"
+    ((reg, rem):xs) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
+
+grepmain = do
+  args <- getArgs
+  putStrLn $ head args
 
 -- This version is an attempt at turning the regex string into a parser
 -- ie, we attempt to write a Parser (Parser String)
@@ -40,20 +55,8 @@ regclass = do
     let p = anyp x
     return $ fmap singleton $ sat (if comp == '^' then not . p else p)
   <|> do
-    char '.'
-    return $ fmap singleton $ sat anychar
-  <|> do
-    string "\\s"
-    return $ fmap singleton $ sat whitespacechar
-  <|> do
-    string "\\S"
-    return $ fmap singleton $ sat $ not . whitespacechar
-  <|> do
-    string "\\w"
-    return $ fmap singleton $ sat wordchar
-  <|> do
-    string "\\W"
-    return $ fmap singleton $ sat $ not . wordchar
+    pred <- regspecialcharset
+    return $ fmap singleton $ sat pred
 
 reggroup :: Parser Regex
 reggroup = do
@@ -72,17 +75,38 @@ regclassoption = do
     char '-'
     y <- sat (/= ']')
     return $ (\ch -> (ord x <= ord ch) && (ord ch <= ord y))
+  <|> regspecialcharset
   <|> do
     x <- sat $ not . (flip elem "]") 
     return $ (== x)
 
 -- ==================================
 --     CHAR SETS :: Char -> Bool
+--      (and a parser)
 -- ==================================
+regspecialcharset :: Parser (Char -> Bool)
+regspecialcharset = do
+    char '.'
+    return anychar
+  <|> do
+    string "\\s"
+    return whitespacechar
+  <|> do
+    string "\\S"
+    return $ not .whitespacechar
+  <|> do
+    string "\\w"
+    return wordchar
+  <|> do
+    string "\\W"
+    return $ not . wordchar
+
 
 whitespacechar = flip elem " \t\n\r\f"
 anychar = charInRange ' ' '~'
 wordchar = (charInRange '0' '9') ||| (charInRange 'a' 'z') ||| (charInRange 'A' 'Z') ||| (=='_')
+
+
 
 
 charInRange x y = \ch -> ord x <= ord ch && ord ch <= ord y
@@ -167,19 +191,3 @@ p ||| q = \x -> p x || q x
 nonep :: [a -> Bool] -> (a -> Bool)
 nonep [] val = True
 nonep (x:xs) val = (not $ x val) && nonep xs val
-
-solve :: [String] -> String
-solve [] = defaultSolve
-solve [x] = "No search text given"
-solve (regstr:text:xs) = case safeHead parsers of
-  Nothing -> "Error compiling regex"
-  Just (reg,rem) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
-  where
-    parsers = parse regex regstr
-
-defaultSolve :: String
-defaultSolve = show $ parse (char '^' <|> pure '+') "aaa"
--- defaultSolve = match reg text
---   where 
---     reg = fst $ head $ parse regex "[a-c]"
---     text = "aa"
