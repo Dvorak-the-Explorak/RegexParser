@@ -2,12 +2,18 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 import Parsing
 import Data.Char (chr, ord)  
+import Data.List (isInfixOf)
 import System.Environment
+import System.Directory
+import Debug.Trace
+
+type Regex = Parser String
+
 
 -- main = interact $
 --   solve . lines
 
-main = testmain
+main = dirmain
 
 testmain = do
   regstr <- getLine
@@ -15,20 +21,84 @@ testmain = do
   let parsers = parse regex regstr
   putStrLn $ case parse regex regstr of
     [] -> "Error compiling regex"
-    ((reg, rem):xs) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches \"" ++ match reg text ++ "\"\n"
+    ((reg, rem):xs) -> "/" ++ (take (length regstr - length rem) regstr) ++ "/" ++ " matches " ++ match reg text ++ "\n"
 
 grepmain = do
   args <- getArgs
-  putStrLn $ head args
-
--- This version is an attempt at turning the regex string into a parser
--- ie, we attempt to write a Parser (Parser String)
-
-type Regex = Parser String
+  regstr <- head args
 
 
+  putStrLn $ case args of
+    [] -> "Usage: hagrep PATTERN"
+    (regstr:xs) -> case parse regex regstr of
+      [] -> "Error compiling regex"
+      ((reg, rem):ps) -> "compiled regex: /" ++ (take (length regstr - length rem) regstr) ++ "/"
+
+argReg = 
+
+dirmain = do
+  reg <- pure $ fst $ head $ parse hackRegex "Parser"
+  -- files :: [String]
+  files <- listDirectory "testdir"
+  putStrLn $ show files
+  -- mapM :: (a -> m b) -> t a -> m (t b)
+  -- mapM :: (String -> IO [String]) -> [String] -> IO [[String]]
+  -- matchCollections :: [[s]]
+  matchCollections <- mapM (fileSearch reg) files
+  mapM putStrLn $ concat matchCollections
 
 
+-- filematchmaintest = do
+--   reg <- pure $ fst $ head $ parse hackRegex "caneer"
+--   matchLines <- fileSearch reg "treasure_island.html"
+--   mapM putStrLn matchLines
+
+
+
+
+
+
+
+-- given a regex and a filename,
+--  list all lines that contain a match 
+fileSearch :: Regex -> String -> IO [String]
+fileSearch reg filename = fmap filterMatches (readFile filename)
+  where
+    filterMatches = filter (hasMatch reg) . lines
+
+
+hasMatch :: Regex -> String -> Bool
+hasMatch reg str = if rm == sm then rm else trace ("MATCH MISSED: " ++ str) rm
+  where
+    rm = not $ null $ parse reg str
+    sm = isInfixOf "Parser" str
+
+match :: Regex -> String -> String
+match reg str = case parse reg str of
+    [] -> "nothing"
+    xs ->  fst $ head xs
+-- match reg str = show $ map fst $ parse reg str
+
+matches :: Regex -> String -> String
+matches reg str = show $ map fst $ parse reg str
+
+
+
+
+
+
+
+-- a hacky way to allow matches anywhere in a string
+--    (rather than strictly at the start)
+hackRegex :: Parser Regex
+hackRegex = fmap hackPrepend regex
+
+-- just add .*? before the regex
+--  (and ignore whatever it matches)
+hackPrepend :: Regex -> Regex
+hackPrepend reg = do
+  zeroormorenongreedy $ fmap singleton $ sat anychar
+  reg
 
 -- an element then more stuff OR a single element
 regex :: Parser Regex
@@ -71,19 +141,18 @@ reggroup = do
   return g
 
 regclassoption :: Parser (Char -> Bool)
-regclassoption = do
+regclassoption = do -- 
     x <- sat (/= ']')
     char '-'
     y <- sat (/= ']')
     return $ (\ch -> (ord x <= ord ch) && (ord ch <= ord y))
   <|> regspecialcharset
-  <|> do
+  <|> do -- single normal character
     x <- sat $ not . (flip elem "]") 
     return $ (== x)
 
 -- ==================================
---     CHAR SETS :: Char -> Bool
---      (and a parser)
+--     CHAR SETS (and parser)
 -- ==================================
 regspecialcharset :: Parser (Char -> Bool)
 regspecialcharset = do
@@ -102,16 +171,16 @@ regspecialcharset = do
     string "\\W"
     return $ not . wordchar
 
-
 whitespacechar = flip elem " \t\n\r\f"
 anychar = charInRange ' ' '~'
 wordchar = (charInRange '0' '9') ||| (charInRange 'a' 'z') ||| (charInRange 'A' 'Z') ||| (=='_')
 
-
-
-
 charInRange x y = \ch -> ord x <= ord ch && ord ch <= ord y
 
+-- ================================
+--    Modifiers (one or more etc)
+--      as functions (Regex -> Regex)
+-- ================================
 
 regmodifier:: Parser (Regex -> Regex)
 regmodifier = do
@@ -134,11 +203,6 @@ regmodifier = do
       return oneormore
     <|> pure id
 
-
--- ================================
---    MODIFIERS :: Regex -> Regex
--- ================================
-
 zeroorone p = p <|> emptyMatch
 
 zerooronenongreedy p = emptyMatch <|> p
@@ -151,6 +215,8 @@ zeroormore p = oneormore p <|> emptyMatch
 
 zeroormorenongreedy p = emptyMatch <|> oneormorenongreedy p
 
+
+
 -- should this be defined as "reverse nongreedyoptions" ?
 greedyOptions :: ([String], String) -> [(String, String)]
 greedyOptions ([], rem) = []
@@ -162,16 +228,8 @@ nongreedyOptions ((x:xs), rem) = (x, mconcat xs ++ rem) : (map (\(a,b) -> (x++a,
   where
     suffixes =  nongreedyOptions (xs, rem)
 
+
 isSpecial = flip elem "+*?)"
-
-regcharrange :: Char -> Char -> Regex
-regcharrange x y = fmap singleton $ sat (\ch -> ord x <= ord ch && ord ch <= ord y)
-
-
-match :: Regex -> String -> String
-match reg str = case parse reg str of
-    [] -> "nothing"
-    xs ->  fst $ head xs
 
 emptyMatch :: Regex
 emptyMatch = pure ""
