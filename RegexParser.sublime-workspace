@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"filter",
+				"filterMatches"
+			],
+			[
+				"print",
+				"printAllMatches"
+			],
+			[
+				"ign",
+				"ignoredExtensions"
+			],
+			[
 				"dirm",
 				"dirmaintest"
 			],
@@ -182,10 +194,6 @@
 			[
 				"staff",
 				"staff_window"
-			],
-			[
-				"print",
-				"print_hash"
 			],
 			[
 				"run",
@@ -506,14 +514,6 @@
 			[
 				"screen",
 				"ScreenInfo"
-			],
-			[
-				"fro",
-				"fromFSmooth"
-			],
-			[
-				"from",
-				"fromFPoly"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "main.hs",
 			"settings":
 			{
-				"buffer_size": 6529,
+				"buffer_size": 8258,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -538,10 +538,19 @@
 			}
 		},
 		{
+			"contents": "jack gate levin",
+			"settings":
+			{
+				"buffer_size": 15,
+				"line_ending": "Windows",
+				"name": "jack gate levin"
+			}
+		},
+		{
 			"file": "test.txt",
 			"settings":
 			{
-				"buffer_size": 10,
+				"buffer_size": 4,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -737,6 +746,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Joe/Documents/GitHub/RegexParser/    Variable not in scope",
 		"/C/Users/Joe/Documents/GitHub/RegexParser/gutenberg_preamble.txt",
 		"/C/Users/Joe/Documents/GitHub/RegexParser/treasure_island.html",
 		"/C/Users/Joe/Downloads/grep-3.4.tar/grep-3.4/src/grep.c",
@@ -863,12 +873,11 @@
 		"/C/Users/joete/Downloads/5da990a6084b4490815420bf5ccf6a4b_wa_max_month (4).py",
 		"/C/Users/joete/Documents/IFB104/2020_exam_marking/downloader.js",
 		"/C/Users/joete/Documents/IFB104/2020_exam_marking/marker.py",
-		"/C/Users/joete/OneDrive/Documents/Tutor/IFB104/19s2/a2_precheck.py",
-		"/C/Users/joete/OneDrive/Documents/Tutor/IFB104/20s1/A2_marking.txt"
+		"/C/Users/joete/OneDrive/Documents/Tutor/IFB104/19s2/a2_precheck.py"
 	],
 	"find":
 	{
-		"height": 53.0
+		"height": 55.0
 	},
 	"find_in_files":
 	{
@@ -882,6 +891,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Finished",
+			"finished",
+			"printAllMatches",
+			"MATCH",
+			"match missed",
+			"printf",
 			"matchers",
 			"compile",
 			"and accept",
@@ -1003,13 +1018,7 @@
 			"\\{([^}]+)\\} \\{plural\\(('[^']*'), \\1\\)\\}",
 			"\\{([^}]+)\\} ",
 			"\\{([^]+)\\} ",
-			"\\{([^]+)\\} \\{plural\\(('[^']*'), \\1\\)\\}",
-			"plural",
-			"calls",
-			"y",
-			"def y",
-			"sh.y",
-			"pay"
+			"\\{([^]+)\\} \\{plural\\(('[^']*'), \\1\\)\\}"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -1164,15 +1173,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6529,
+						"buffer_size": 8258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1204,
-								1204
+								2279,
+								2279
 							]
 						],
 						"settings":
@@ -1182,10 +1191,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 992.0,
+						"translation.y": 2018.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1201,8 +1210,8 @@
 						"selection":
 						[
 							[
-								2293,
-								2293
+								657,
+								657
 							]
 						],
 						"settings":
@@ -1215,7 +1224,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"auto_name": "jack gate levin",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1225,20 +1262,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "test.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10,
+						"buffer_size": 4,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10,
-								10
+								4,
+								4
 							]
 						],
 						"settings":
@@ -1249,7 +1286,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1257,7 +1294,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 41.0
+		"height": 43.0
 	},
 	"input":
 	{
@@ -1283,7 +1320,7 @@
 		"cols":
 		[
 			0.0,
-			0.564224377941,
+			0.800943127941,
 			1.0
 		],
 		"rows":
@@ -1313,7 +1350,7 @@
 	"project": "RegexParser.sublime-project",
 	"replace":
 	{
-		"height": 78.0
+		"height": 82.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1347,7 +1384,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

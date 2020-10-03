@@ -3,6 +3,8 @@
 import Parsing
 import Data.Char (chr, ord)  
 import Data.List (isInfixOf)
+import Data.Text (splitOn, pack, unpack)
+import Control.Monad 
 import System.Environment
 import System.Directory
 import Debug.Trace
@@ -13,7 +15,7 @@ type Regex = Parser String
 -- main = interact $
 --   solve . lines
 
-main = dirmain
+main =  dirmain2 
 
 testmain = do
   regstr <- getLine
@@ -25,8 +27,7 @@ testmain = do
 
 grepmain = do
   args <- getArgs
-  regstr <- head args
-
+  regstr <- pure $ head args
 
   putStrLn $ case args of
     [] -> "Usage: hagrep PATTERN"
@@ -34,19 +35,53 @@ grepmain = do
       [] -> "Error compiling regex"
       ((reg, rem):ps) -> "compiled regex: /" ++ (take (length regstr - length rem) regstr) ++ "/"
 
-argReg = 
+
 
 dirmain = do
-  reg <- pure $ fst $ head $ parse hackRegex "Parser"
-  -- files :: [String]
-  files <- listDirectory "testdir"
-  putStrLn $ show files
+  reg <- pure $ fst $ head $ parse hackRegex "Cap"
+  -- List everything in the directory (except . and ..) as pathnames
+  dir <- listDirectory "."
+  -- only keep the pathnames that are files (remove directories)
+  files <- filterM doesFileExist dir
+  -- only keep the files that don't have the excluded extensions
+  toSearch <- pure $ filter isFileSearchable $ map pack files
+
   -- mapM :: (a -> m b) -> t a -> m (t b)
   -- mapM :: (String -> IO [String]) -> [String] -> IO [[String]]
   -- matchCollections :: [[s]]
-  matchCollections <- mapM (fileSearch reg) files
+  matchCollections <- mapM (fileSearch reg) (map unpack toSearch)
   mapM putStrLn $ concat matchCollections
 
+dirmain2 = do
+  reg <- pure $ fst $ head $ parse hackRegex "Cap"
+  -- List everything in the directory (except . and ..) as pathnames
+  dir <- listDirectory "."
+  -- only keep the pathnames that are files (remove directories)
+  files <- filterM doesFileExist dir
+  -- only keep the files that don't have the excluded extensions
+  toSearch <- pure $ filter isFileSearchable $ map pack files
+
+  -- contents :: [[String]]; a list of files, each as a list of lines
+  contents' <- mapM readFile $ map unpack toSearch
+  contents <- pure $ map lines contents'
+  -- contents' <- readFile $ unpack $ head toSearch
+  -- contents <- pure $ [lines contents']
+  printAllMatchesPure (filter $ hasMatch reg) contents
+
+
+printAllMatchesPure :: ([String] -> [String]) -> [[String]] -> IO ()
+printAllMatchesPure search [] = return ()
+printAllMatchesPure search (x:xs) = do 
+                                  matches <- pure $ search x
+                                  mapM putStrLn matches
+                                  printAllMatchesPure search xs
+
+printAllMatches :: (String -> IO [String]) -> [String] -> IO ()
+printAllMatches search [] = return ()
+printAllMatches search (x:xs) = do 
+                                  matches <- search x
+                                  if length matches >=1 then print matches else pure ()
+                                  printAllMatches search xs
 
 -- filematchmaintest = do
 --   reg <- pure $ fst $ head $ parse hackRegex "caneer"
@@ -56,22 +91,26 @@ dirmain = do
 
 
 
-
+isFileSearchable filename = (length split > 1) && (not $ elem ext ignoredExtensions)
+  where
+    split = splitOn (pack ".") filename
+    ext = split !! 1
+    ignoredExtensions = map pack ["exe", "o", "hi"]
 
 
 -- given a regex and a filename,
 --  list all lines that contain a match 
 fileSearch :: Regex -> String -> IO [String]
-fileSearch reg filename = fmap filterMatches (readFile filename)
+fileSearch reg filename = fmap filterMatches $ readFile filename
   where
-    filterMatches = filter (hasMatch reg) . lines
+    filterMatches = (++ ["Finished searching " ++ show filename]) . filter (hasMatch reg) . lines
 
 
 hasMatch :: Regex -> String -> Bool
 hasMatch reg str = if rm == sm then rm else trace ("MATCH MISSED: " ++ str) rm
   where
     rm = not $ null $ parse reg str
-    sm = isInfixOf "Parser" str
+    sm = isInfixOf "Cap" str
 
 match :: Regex -> String -> String
 match reg str = case parse reg str of
